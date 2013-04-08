@@ -1,0 +1,7 @@
+parameters:
+#    arson_el_finder.example.class: Arson\elFinderBundle\Example
+
+services:
+#    arson_el_finder.example:
+#        class: %arson_el_finder.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
