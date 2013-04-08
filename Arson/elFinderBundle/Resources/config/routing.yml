@@ -1,0 +1,15 @@
+arson_el_finder__test:
+    pattern:  /testelfinder
+    defaults: { _controller: ArsonElFinderBundle:Elfinder:index }
+    
+arson_el_finder_widget:
+    pattern:  /arson_el_finder_widget/{chemin}
+    defaults: { _controller: ArsonElFinderBundle:Elfinder:elfinderWidget }
+    requirements:
+        chemin: ".+"
+    
+arson_el_finder_connector:
+    pattern:  /arson_el_finder_connector/{chemin}
+    defaults: { _controller: ArsonElFinderBundle:Elfinder:connect }    
+    requirements:
+        chemin: ".+"

@@ -1,0 +1,41 @@
+{% extends 'AgisBOAgisBundle:Default:base.html.twig' %}
+
+{% block main_container %}    			
+
+<div class="flat_area grid_16">
+        <h2>Edition d'une rubrique  </h2>
+        <div class="box grid_16 round_all">
+            <div class="toggle_container">
+              <div class="block">
+                        <fieldset class="label_side top">
+                            <label>	Texte</label>
+                            <div class="uniform">
+                       <textarea id="t1" rows="" cols=""></textarea>
+                       
+                            		<script>                        			
+                        			CKEDITOR.replace( 't1', {
+                        			    bodyId : "www",
+                        			    filebrowserBrowseUrl : "{{ path('arson_el_finder_widget', { chemin : 'uploads/' }) }}",
+                        			    filebrowserWindowHeight : 400,
+                        				on: {
+                            				// Check for availability of corresponding plugins.
+                        					pluginsLoaded: function( evt ) {
+                        						var doc = CKEDITOR.document, ed = evt.editor;
+                        						if ( !ed.getCommand( 'bold' ) )
+                        							doc.getById( 'exec-bold' ).hide();
+                        						if ( !ed.getCommand( 'link' ) )
+                        							doc.getById( 'exec-link' ).hide();
+                        					}
+                        				}
+                        			});
+                        	    </script>
+              
+                                
+                            		 
+                            </div>
+                        </fieldset>
+                        </div>
+                        </div>
+                        </div>
+                        </div>
+                        {% endblock %}
