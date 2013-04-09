@@ -31,4 +31,4 @@ II - INSTALLATION
         filebrowserBrowseUrl : "{{ path('arson_el_finder_widget', { chemin : 'uploaded/pdf' }) }}" , instead of
         filebrowserBrowseUrl : "{{ path('arson_el_finder_widget', { chemin : 'path_to_pdf' }) }}"             
          
-        
+    7- Under windows, don't forget to activate the fileinfo extension by uncommenting the line extension=php_fileinfo.dll in php.ini
