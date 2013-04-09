@@ -5,12 +5,11 @@ namespace Arson\elFinderBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller; 
 
 /*BLOC elfinder*/
-include_once dirname(__FILE__).'/../ElFinder/elFinderConnector.class.php';
-include_once dirname(__FILE__).'/../ElFinder/elFinder.class.php';
-include_once dirname(__FILE__).'/../ElFinder/elFinderVolumeDriver.class.php';
-include_once dirname(__FILE__).'/../ElFinder/elFinderVolumeLocalFileSystem.class.php';
-
-
+define('PATH_ELFINDER', realpath( __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR .'Elfinder') . DIRECTORY_SEPARATOR );
+include_once PATH_ELFINDER . 'elFinderConnector.class.php';
+include_once PATH_ELFINDER . 'elFinder.class.php';
+include_once PATH_ELFINDER . 'elFinderVolumeDriver.class.php';
+include_once PATH_ELFINDER . 'elFinderVolumeLocalFileSystem.class.php';
 
 /*END BLOC*/
  
