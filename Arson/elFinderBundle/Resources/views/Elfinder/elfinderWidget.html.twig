@@ -16,9 +16,9 @@
 		<!-- elFinder JS (REQUIRED) -->
 		<script type="text/javascript" src="{{ asset('bundles/arsonelfinder/js/elfinder.min.js') }}"></script>
 
-		<!-- elFinder translation (OPTIONAL) -->
+		<!-- elFinder translation (OPTIONAL) 
 		<script type="text/javascript" src="js/i18n/elfinder.ru.js"></script>
-
+        -->
 		<!-- elFinder initialization (REQUIRED) -->
 				<script type="text/javascript" charset="utf-8">
     // Helper function to get parameters from the query string.
@@ -28,18 +28,37 @@
         
         return (match && match.length > 1) ? match[1] : '' ;
     }
-
-    $().ready(function() {
-        var funcNum = getUrlParam('CKEditorFuncNum');
-
-        var elf = $('#elfinder').elfinder({
-            url : "{{ path('arson_el_finder_connector', { 'chemin' : chemin } ) }}",  // connector URL (REQUIRED)
-            getFileCallback : function(file) {
-                window.opener.CKEDITOR.tools.callFunction(funcNum, file);
-                window.close();
-            },
-            resizable: false
-        }).elfinder('instance');
+    
+     var custom =
+    {% if app.session.hasFlash('arson_elfinder_clientConfig') %}
+         "{{ app.session.Flash('arson_elfinder_clientConfig')}}"
+     {% else %}"{}"{% endif %};
+      $(document).ready(function() {
+          
+     var funcNum = getUrlParam('CKEditorFuncNum');
+     var options = {
+             url : "{{ path('arson_el_finder_connector', { 'chemin' : chemin } ) }}",  // connector URL (REQUIRED)
+             getFileCallback : function(file) {              
+                 if( typeof(window.opener.elfinderGetFileCallback ) !== "undefined") {
+                     window.opener.elfinderGetFileCallback(file) ;
+                 }
+                 
+                 if(window.opener) {
+                     window.opener.CKEDITOR.tools.callFunction(funcNum, file);
+                 }
+                 
+                 window.close();
+             },
+             resizable: false
+         };
+     
+    $.extend(true, options, custom);
+       
+   
+      
+        custom = $("<div/>").html(custom).text();
+        custom = JSON.parse(custom);
+        var elf = $('#elfinder').elfinder(options).elfinder('instance');
     });
 </script>
 	</head>

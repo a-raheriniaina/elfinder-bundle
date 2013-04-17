@@ -9,6 +9,7 @@ include_once dirname(__FILE__).'/../Elfinder/elFinderConnector.class.php';
 include_once dirname(__FILE__).'/../Elfinder/elFinder.class.php';
 include_once dirname(__FILE__).'/../Elfinder/elFinderVolumeDriver.class.php';
 include_once dirname(__FILE__).'/../Elfinder/elFinderVolumeLocalFileSystem.class.php';
+include_once dirname(__FILE__).'/../Elfinder/elFinderVolumeArson.class.php';
 
 
 
@@ -23,7 +24,7 @@ class ElfinderController extends Controller
     }
     
     public function elfinderWidgetAction($chemin)
-    {
+    {      
     	if ($this->container->has('profiler'))
     	{
     		$this->container->get('profiler')->disable();
@@ -38,15 +39,18 @@ class ElfinderController extends Controller
     		$chemin = $this->container->getParameter($chemin);
     	}
     	
+    	$cheminUrl = $this->container->get('templating.helper.assets')
+    	->getUrl($chemin);
     	$opts = array(
+    	      //  'bind' => array('upload' => 'upload'),
     			'debug' => true,
     			'roots' => array(
     					array(
-    							'driver'        => 'LocalFileSystem',   // driver for accessing file system (REQUIRED)
+    							'driver'        => 'Arson',   // driver for accessing file system (REQUIRED)
     							'path'          => $chemin,         // path to files (REQUIRED)
-    							'URL'           => dirname($_SERVER['PHP_SELF']). DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR .'..'. DIRECTORY_SEPARATOR . $chemin, // URL to files (REQUIRED)
+    							 'URL'           =>$cheminUrl,         // URL to files (REQUIRED)
     							'accessControl' => 'access',             // disable and hide dot starting files (OPTIONAL). La fonction 'access' doit se trouver dans Elfinder/callbacks
-    							'tmpDir'        => '.tmp'
+    							'tmpDir'        => $this->container->get('templating.helper.assets')->getUrl('.tmb/')
     					)
     			)
     	);
